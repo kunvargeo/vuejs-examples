@@ -1,0 +1,23 @@
+.form{
+    display: flex;
+    margin-top: 10px;
+}
+.form-input{
+    border-radius :5px;
+    height: 30px;
+}
+.login-form{
+    width: 300px;
+    margin: 0 auto;
+}
+.form-label{
+ padding-right: 2px;
+}
+.loginbtn{
+    margin-top: 5px;
+    width: 80px;
+    background-color: #20b763;
+    color: #2c3e50;
+    border-radius: 15px;
+    height: 30px;
+}
