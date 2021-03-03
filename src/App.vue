@@ -17,6 +17,8 @@
       <a @click="open('child-parent')" class="heading">Child Parent relationship</a>
       <a @click="open('component-state')" class="heading">Component State management</a>
       <a @click="open('alert-box')" class="heading">Alert Box</a>
+      <a @click="open('crud')" class="heading">CRUD Example</a>
+      <a @click="open('form')" class="heading">Form elements Example</a>
     </div>
     <!-- End -->
 
@@ -110,6 +112,13 @@
     </div>
   </template>
 
+  <template v-if="openBlock==='crud'">
+     <h2>CRUD Example</h2>
+    <div class="section">
+      <crud></crud>
+    </div>
+  </template>
+
     <!-- <login message="Welcome To Login"></login>
      <div id="components-demo">
       BTN Counter :
@@ -133,6 +142,7 @@ import simpleChild from './components/parent-child/simple-props-child.vue'
 import parent from './components/parent-child/parent.vue'
 import child from './components/parent-child/child'
 import alertBox from './components/alert-box.vue'
+import crud from './components/CRUD/crud-basic.vue'
 
 // export default {
 //   name: 'App',
@@ -192,7 +202,8 @@ export default{
     simpleChild,
     parent,
     child,
-    alertBox
+    alertBox,
+    crud
   }
 }
 </script>
