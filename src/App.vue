@@ -19,6 +19,7 @@
       <a @click="open('alert-box')" class="heading">Alert Box</a>
       <a @click="open('crud')" class="heading">CRUD Example</a>
       <a @click="open('form')" class="heading">Form elements Example</a>
+      <a @click="open('api')" class="heading">API Example</a>
     </div>
     <!-- End -->
 
@@ -116,6 +117,18 @@
      <h2>CRUD Example</h2>
     <div class="section">
       <crud></crud>
+    </div>
+  </template>
+
+  <template v-if="openBlock==='form'">
+     <h2>Form Example</h2>
+    <div class="section">
+    </div>
+  </template>
+
+  <template v-if="openBlock==='api'">
+     <h2>API Example</h2>
+    <div class="section">
     </div>
   </template>
 
@@ -225,6 +238,7 @@ export default{
 .navbar{
   display: flex;
   justify-content: space-around;
+  margin-top: 10px;
 }
 .heading{
   color: #2bb769;
