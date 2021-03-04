@@ -123,35 +123,14 @@
   <template v-if="openBlock==='form'">
      <h2>Form Example</h2>
     <div class="section">
+      <formExample></formExample>
     </div>
   </template>
 
   <template v-if="openBlock==='api'">
      <h2>API Example</h2>
     <div class="section">
-      <table v-if="postId===0">
-        <tr>
-          <th>Post Id</th>
-          <th>Title</th>
-          <th>Description</th>
-        </tr>
-        <tr v-for="post in postData" :key="post.id" @click="postClick(post.id)">
-          <td class="listitems">{{post.id}}</td>
-          <td class="listitems">{{post.title}}</td>
-          <td class="listitems">{{post.body}}</td>
-        </tr>
-      </table>
-      <div v-if="postId!==0">
-        <button @click="postId=0">Go Back to Posts</button>
-          <div v-for="comment in postComments" :key="comment.id" class="card">
-            <div class="profile">
-              <span class="username">{{comment.name.substr(0,2).toUpperCase()}}</span>
-            </div>
-            <h3 class="title">Post By : {{comment.name}}</h3>
-            <span class="small-email">{{comment.email}}</span><br/>
-           <span> Comments :   {{comment.body}}</span>
-          </div>
-      </div>
+      <apiExample></apiExample>
     </div>
   </template>
 
@@ -179,6 +158,8 @@ import parent from './components/parent-child/parent.vue'
 import child from './components/parent-child/child'
 import alertBox from './components/alert-box.vue'
 import crud from './components/CRUD/crud-basic.vue'
+import apiExample from './components/api-example.vue'
+import formExample from './components/form-example.vue'
 
 // export default {
 //   name: 'App',
@@ -210,18 +191,12 @@ export default{
       dynamicClass : false,
       users : users,
       toggle : false,
-      show : false,
-      postData : [],
-      postComments : [],
-      postId : 0        
+      show : false     
     }
   },
   methods : {
     open : function(type){
       this.openBlock = type
-      if(type==='api'){
-        this.fetchApiData()
-      }
     },
     close : function(){
       this.open = ''
@@ -232,23 +207,6 @@ export default{
     toggleMe : function(){
       this.show = true
       this.toggle = !this.toggle
-    },
-    fetchApiData : function(){
-       fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then((data=> {
-        this.postData = data
-      })
-      )
-    },
-    postClick : function(postId){
-      this.postId = postId
-      fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-      .then(response => response.json())
-      .then((data=> {
-        this.postComments = data
-      })
-      )
     }
   },
   computed : {
@@ -262,7 +220,9 @@ export default{
     parent,
     child,
     alertBox,
-    crud
+    crud,
+    apiExample,
+    formExample
   }
 }
 </script>
