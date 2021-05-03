@@ -21,6 +21,11 @@
       <a @click="open('form')" class="heading">Form elements Example</a>
       <a @click="open('api')" class="heading">API Example</a>
     </div>
+    <div class="navbar">
+      <a @click="open('routing')" class="heading">Routing</a>
+      <a @click="open('mapbox')" class="heading">Mapbox</a>
+       <a @click="open('mapbox')" class="heading">Tailwind Examples</a>
+    </div>
     <!-- End -->
 
   <!-- Sections -->
@@ -134,6 +139,20 @@
     </div>
   </template>
 
+   <template v-if="openBlock==='routing'">
+     <h2>Routing Example</h2>
+    <div class="section">
+      <routing></routing>
+    </div>
+  </template>
+
+    <template v-if="openBlock==='mapbox'">
+     <h2>Mapbox</h2>
+    <div class="section">
+      <mapbox></mapbox>
+    </div>
+  </template>
+
     <!-- <login message="Welcome To Login"></login>
      <div id="components-demo">
       BTN Counter :
@@ -160,6 +179,8 @@ import alertBox from './components/alert-box.vue'
 import crud from './components/CRUD/crud-basic.vue'
 import apiExample from './components/api-example.vue'
 import formExample from './components/form-example.vue'
+import routing from './components/routing/routing.vue'
+import mapbox from './components/mapbox/mapbox.vue'
 
 // export default {
 //   name: 'App',
@@ -222,7 +243,9 @@ export default{
     alertBox,
     crud,
     apiExample,
-    formExample
+    formExample,
+    routing,
+    mapbox
   }
 }
 </script>
