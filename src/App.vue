@@ -147,7 +147,6 @@
   </template>
 
     <template v-if="openBlock==='mapbox'">
-     <h2>Mapbox</h2>
     <div class="section">
       <mapbox></mapbox>
     </div>

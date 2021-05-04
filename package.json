@@ -10,6 +10,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "mapbox-gl": "^2.2.0",
+    "postcss": "^8.2.13",
+    "tailwindcss": "^2.1.2",
     "vue": "^2.6.11",
     "vue-mapbox": "^0.4.1"
   },
