@@ -36,6 +36,7 @@
       <a class="heading" @click="open('mapbox')">Mapbox</a>
       <a class="heading" @click="open('mapbox')">Tailwind Examples</a>
     </div>
+    <div class="flex justify-end text-xs px-4">V{{ version }}</div>
     <!-- End -->
 
     <!-- Sections -->
@@ -92,16 +93,12 @@
 
     <template v-if="openBlock === 'condition'">
       <h2>Conditional Example</h2>
-      <button @click="toggleMe">
-        Toggle Me
-      </button>
+      <button @click="toggleMe">Toggle Me</button>
       <div class="section">
         <span v-if="toggle">Yes, It's me &#128540;</span>
         <span v-else>Oh no 😢</span>
       </div>
-      <h1 v-show="show">
-        Hello!
-      </h1>
+      <h1 v-show="show">Hello!</h1>
     </template>
 
     <template v-if="openBlock === 'inline-style'">
@@ -209,6 +206,7 @@ import apiExample from "./components/api-example.vue";
 import formExample from "./components/form-example.vue";
 import routing from "./components/routing/routing.vue";
 import mapbox from "./components/mapbox/mapbox.vue";
+import packageJson from ".././package.json";
 
 // export default {
 //   name: 'App',
@@ -231,10 +229,11 @@ export default {
     apiExample,
     formExample,
     routing,
-    mapbox
+    mapbox,
   },
   data: function() {
     return {
+      version: packageJson.version,
       openBlock: "",
       dataBinding: "I am data binding",
       name: "",
@@ -252,13 +251,13 @@ export default {
       dynamicClass: false,
       users: users,
       toggle: false,
-      show: false
+      show: false,
     };
   },
   computed: {
     getName: function() {
       return this.name;
-    }
+    },
   },
   methods: {
     open: function(type) {
@@ -273,8 +272,8 @@ export default {
     toggleMe: function() {
       this.show = true;
       this.toggle = !this.toggle;
-    }
-  }
+    },
+  },
 };
 </script>
 

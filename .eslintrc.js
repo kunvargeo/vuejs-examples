@@ -15,13 +15,14 @@ module.exports = {
     // use the recommended rule set for both plain javascript and vue
     "eslint:recommended",
     "plugin:vue/recommended",
-    "plugin:prettier/recommended"
+    // "plugin:prettier/recommended"
   ],
-  plugins: ["prettier", "vue"],
+  // plugins: ["prettier", "vue"],
+  plugins: ["vue"],
   rules: {
     // we should always disable console logs and debugging in production
     "vue/no-v-html": "off",
-    "prettier/prettier": "error",
+    // "prettier/prettier": "error",
     "vue/require-prop-types": 0,
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
