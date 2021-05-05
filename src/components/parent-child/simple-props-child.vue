@@ -16,8 +16,8 @@ export default {
 
     users: {
       type: Array,
-    },
+    }
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
