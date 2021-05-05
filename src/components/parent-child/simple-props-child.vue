@@ -15,7 +15,7 @@ export default {
     message: String,
 
     users: {
-      type: Array,
+      type: Array
     }
   },
   mounted() {}
