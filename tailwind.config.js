@@ -1,38 +1,38 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   purge: {
-    enabled: process.env.NODE_ENV === 'production',
+    enabled: process.env.NODE_ENV === "production",
     content: [
-      'components/**/*.vue',
-      'layouts/**/*.vue',
-      'pages/**/*.vue',
-      'plugins/**/*.js',
-      'nuxt.config.js',
+      "components/**/*.vue",
+      "layouts/**/*.vue",
+      "pages/**/*.vue",
+      "plugins/**/*.js",
+      "nuxt.config.js",
       // TypeScript
-      'plugins/**/*.ts',
-      'nuxt.config.ts',
-    ],
+      "plugins/**/*.ts",
+      "nuxt.config.ts"
+    ]
   },
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
-    },
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans]
+      }
+    }
   },
   variants: {
     extend: {
-      backgroundColor: ['checked'],
-      backgroundImage: ['checked'],
-      borderColor: ['checked'],
-      scale: ['group-hover'],
-    },
+      backgroundColor: ["checked"],
+      backgroundImage: ["checked"],
+      borderColor: ["checked"],
+      scale: ["group-hover"]
+    }
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio")
+  ]
 };

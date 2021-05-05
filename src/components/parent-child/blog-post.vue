@@ -1,28 +1,24 @@
 <template>
-    <div class="blog-post">
-      <h3>{{ post.title }}</h3>
-      <button v-on:click="$emit('enlarge-text')">
-        Enlarge text
-      </button>
-      <button v-on:click="$emit('shrink-text')">
-        Shrink text
-      </button>
-      <div v-html="post.content"></div>
-    </div>
+  <div class="blog-post">
+    <h3>{{ post.title }}</h3>
+    <button @click="$emit('enlarge-text')">
+      Enlarge text
+    </button>
+    <button @click="$emit('shrink-text')">
+      Shrink text
+    </button>
+    <div v-html="post.content" />
+  </div>
 </template>
 
 <script>
 export default {
-    data : function(){
-        return{
-
-        }
-    },
-    props : {
-        post : {}
-    },
-    components:{
-
-    },
-}
+  components: {},
+  props: {
+    post: {}
+  },
+  data: function() {
+    return {};
+  }
+};
 </script>

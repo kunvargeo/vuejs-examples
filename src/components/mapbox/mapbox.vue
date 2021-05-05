@@ -1,11 +1,26 @@
 <template>
   <div>
     <div class="mb-4">
-      <button v-on:click="addLayers()"  class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700">Add layers</button>
-      <button v-on:click="removeLayers()"  class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700">Remove layers</button>
-      <button v-on:click="changeColorOfLayer()"  class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700">Change color of layers</button>
+      <button
+        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="addLayers()"
+      >
+        Add layers
+      </button>
+      <button
+        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="removeLayers()"
+      >
+        Remove layers
+      </button>
+      <button
+        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="changeColorOfLayer()"
+      >
+        Change color of layers
+      </button>
     </div>
-    <div id="map" class="w-auto"></div>
+    <div id="map" class="w-auto" />
   </div>
 </template>
 
@@ -24,7 +39,7 @@ export default {
         "#feb24c",
         "#fd8d3c",
         "#f03b20",
-        "#bd0026",
+        "#bd0026"
       ],
       accessToken:
         "pk.eyJ1Ijoia3VudmFyIiwiYSI6ImNrbzJ2MGF2djEzYjIycG9iaDliZGsxb3oifQ.7XZhAg0bhElHLnx3UXF7mg", // your access token. Needed if you using Mapbox maps
@@ -38,7 +53,7 @@ export default {
             {
               type: "Feature",
               properties: {
-                description: "Hey! I am kunvar singh",
+                description: "Hey! I am kunvar singh"
               },
               geometry: {
                 type: "Polygon",
@@ -49,13 +64,13 @@ export default {
                     [79.56298828125, 21.820707853875017],
                     [84.39697265625, 22.187404991398775],
                     [85.8251953125, 24.56710835257599],
-                    [81.5185546875, 25.720735134412106],
-                  ],
-                ],
-              },
-            },
-          ],
-        },
+                    [81.5185546875, 25.720735134412106]
+                  ]
+                ]
+              }
+            }
+          ]
+        }
       },
       geoJsonLayer: {
         id: "custom-layer",
@@ -64,42 +79,12 @@ export default {
         layout: {},
         paint: {
           "fill-color": "#0080ff", // blue color fill
-          "fill-opacity": 0.5,
-        },
-      },
+          "fill-opacity": 0.5
+        }
+      }
     };
   },
   setup() {},
-  methods: {
-    changeColorOfLayer: function() {
-      if (this.mapbox.getLayer("custom-layer")) {
-        this.mapbox.setPaintProperty(
-          "custom-layer",
-          "fill-color",
-          this.colors[Math.floor(Math.random() * 10)]
-        );
-      }
-    },
-     removeLayers: function() {
-      if (this.mapbox.getLayer("custom-layer")) {
-        this.mapbox.removeLayer("custom-layer");
-      }
-    },
-    addLayers: function() {
-       if (!this.mapbox.getLayer("custom-layer")) {
-         this.mapbox.addLayer({
-          id: "custom-layer",
-          type: "fill",
-          source: "thisIsMySource", // reference the data source
-          layout: {},
-          paint: {
-            "fill-color": "#0080ff", // blue color fill
-            "fill-opacity": 0.5,
-          },
-        });
-       }
-    },
-  },
   created() {
     // We need to set mapbox-gl library here in order to use it in template
     setTimeout(() => {
@@ -107,16 +92,24 @@ export default {
         "pk.eyJ1Ijoia3VudmFyIiwiYSI6ImNrbzJ2MGF2djEzYjIycG9iaDliZGsxb3oifQ.7XZhAg0bhElHLnx3UXF7mg";
       const map = new Mapbox.Map({
         container: "map",
-        style: "mapbox://styles/mapbox/streets-v11",
+        style: "mapbox://styles/mapbox/streets-v11"
       });
 
       // map.on("mouseenter", "custom-layer", (event) => {
       //   console.log("simpleee", event);
       // });
-      map.on("click", "custom-layer", (e) => {
+      map.on("click", "custom-layer", e => {
         new Mapbox.Popup()
           .setLngLat(e.lngLat)
-          .setHTML('<div id="popup-content">kkk</div>')
+          .setHTML(
+            `<div id="popup-content">
+          <strong>Truckeroo</strong>
+          <p>
+          <a href="http://www.truckeroodc.com/www/" target="_blank">Truckeroo</a> 
+          brings dozens of food trucks, live music, and games to half and M Street SE (across from Navy Yard Metro Station) today from 11:00 a.m. to 11:00 p.m.
+          </p>
+          </div>`
+          )
           .addTo(map);
       });
       this.mapbox = map;
@@ -129,7 +122,7 @@ export default {
               {
                 type: "Feature",
                 properties: {
-                  description: "Hey! I am kunvar singh",
+                  description: "Hey! I am kunvar singh"
                 },
                 geometry: {
                   type: "Polygon",
@@ -140,13 +133,13 @@ export default {
                       [79.56298828125, 21.820707853875017],
                       [84.39697265625, 22.187404991398775],
                       [85.8251953125, 24.56710835257599],
-                      [81.5185546875, 25.720735134412106],
-                    ],
-                  ],
-                },
-              },
-            ],
-          },
+                      [81.5185546875, 25.720735134412106]
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
         });
         map.addLayer({
           id: "custom-layer",
@@ -155,12 +148,42 @@ export default {
           layout: {},
           paint: {
             "fill-color": "#0080ff", // blue color fill
-            "fill-opacity": 0.5,
-          },
+            "fill-opacity": 0.5
+          }
         });
       });
     }, 5000);
   },
+  methods: {
+    changeColorOfLayer: function() {
+      if (this.mapbox.getLayer("custom-layer")) {
+        this.mapbox.setPaintProperty(
+          "custom-layer",
+          "fill-color",
+          this.colors[Math.floor(Math.random() * 10)]
+        );
+      }
+    },
+    removeLayers: function() {
+      if (this.mapbox.getLayer("custom-layer")) {
+        this.mapbox.removeLayer("custom-layer");
+      }
+    },
+    addLayers: function() {
+      if (!this.mapbox.getLayer("custom-layer")) {
+        this.mapbox.addLayer({
+          id: "custom-layer",
+          type: "fill",
+          source: "thisIsMySource", // reference the data source
+          layout: {},
+          paint: {
+            "fill-color": "#0080ff", // blue color fill
+            "fill-opacity": 0.5
+          }
+        });
+      }
+    }
+  }
 };
 </script>
 <style scoped>
