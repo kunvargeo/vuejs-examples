@@ -1,15 +1,24 @@
 <template>
   <div id="todo-list-example">
     <form @submit.prevent="addNewTodo">
-      <label for="new-todo">Add a todo</label>
+      <label
+        for="new-todo"
+        class="pr-2"
+      >Add a todo</label>
       <input
         id="new-todo"
         v-model="newTodoText"
         placeholder="E.g. Feed the cat"
-      />
-      <button>Add</button>
-      <br />
-      <span v-show="showTodoError" :style="{ marginTop: '5px' }">
+        class="border mr-2"
+      >
+      <button class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700">
+        Add
+      </button>
+      <br>
+      <span
+        v-show="showTodoError"
+        :style="{ marginTop: '5px' }"
+      >
         <alert> Please Fill new TODO item!</alert>
       </span>
       <span v-show="!showTodoError && todos.length === 0">
@@ -17,9 +26,16 @@
       </span>
     </form>
     <ul>
-      <li v-for="(todo, index) in todos" :key="todo.id">
+      <li
+        v-for="(todo, index) in todos"
+        :key="todo.id"
+        class="mt-2 flex justify-center"
+      >
         {{ todo.title }}
-        <button @click="remove(index)">
+        <button
+          class="inline-flex items-center px-4 py-2 mr-2 ml-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700"
+          @click="remove(index)"
+        >
           Remove
         </button>
       </li>

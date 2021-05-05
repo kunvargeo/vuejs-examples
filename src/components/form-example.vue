@@ -1,45 +1,75 @@
 <template>
-  <form v-if="!onsave" @submit.prevent="save">
+  <form
+    v-if="!onsave"
+    @submit.prevent="save"
+  >
     <label for="new-todo">Name : </label>
-    <input id="new-todo" v-model="name" placeholder="E.g. Feed the cat" />
-    <br />
+    <input
+      id="new-todo"
+      v-model="name"
+      placeholder="E.g. Feed the cat"
+    >
+    <br>
 
     <label for="new-todo">Bio : </label>
-    <textarea v-model="bio" placeholder="add multiple lines" /> <br />
+    <textarea
+      v-model="bio"
+      placeholder="add multiple lines"
+    /> <br>
 
     <label for="new-todo">Agree : </label>
-    <input id="checkbox" v-model="agree" type="checkbox" /> <br />
+    <input
+      id="checkbox"
+      v-model="agree"
+      type="checkbox"
+    > <br>
 
     <label for="new-todo">Gender : </label>
-    <input id="one" v-model="gender" type="radio" value="Male" />
+    <input
+      id="one"
+      v-model="gender"
+      type="radio"
+      value="Male"
+    >
     <label for="one">Male</label>
-    <br />
-    <input id="two" v-model="gender" type="radio" value="Female" />
+    <br>
+    <input
+      id="two"
+      v-model="gender"
+      type="radio"
+      value="Female"
+    >
     <label for="two">Female</label>
-    <br />
+    <br>
 
     <label for="new-todo">State : </label>
     <select v-model="state">
-      <option disabled value="">
+      <option
+        disabled
+        value=""
+      >
         Please select one
       </option>
       <option>Delhi</option>
       <option>Pune</option>
       <option>Hydrabad</option>
     </select>
-    <br />
+    <br>
 
     <label for="new-todo">You Love to : </label>
-    <select v-model="interest" multiple>
+    <select
+      v-model="interest"
+      multiple
+    >
       <option>Music</option>
       <option>Travelling</option>
       <option>Playing</option>
       <option>Reading</option>
     </select>
-    <br />
+    <br>
 
     <button>Save</button>
-    <br />
+    <br>
     <!-- <span v-show="showTodoError" v-bind:style="{marginTop:'5px'}">
       <alert> Please Fill new TODO item!</alert>
     </span>
@@ -49,20 +79,14 @@
   </form>
   <div v-else>
     <button @click="goBack">
-      Go Back to Form</button
-    ><br />
-    Name : <span>{{ formData.name }}</span
-    ><br />
-    Bio : <span>{{ formData.bio }}</span
-    ><br />
-    Gender : <span>{{ formData.gender }}</span
-    ><br />
-    Agree : <span>{{ formData.agree }}</span
-    ><br />
-    Interest : <span>{{ formData.interest }}</span
-    ><br />
-    State : <span>{{ formData.state }}</span
-    ><br />
+      Go Back to Form
+    </button><br>
+    Name : <span>{{ formData.name }}</span><br>
+    Bio : <span>{{ formData.bio }}</span><br>
+    Gender : <span>{{ formData.gender }}</span><br>
+    Agree : <span>{{ formData.agree }}</span><br>
+    Interest : <span>{{ formData.interest }}</span><br>
+    State : <span>{{ formData.state }}</span><br>
   </div>
 </template>
 

@@ -1,0 +1,117 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "show_on_map": true,
+          "description": "<strong>Popup</strong><p><a>Popup</a> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                75.95947265625,
+                20.406420474920292
+              ],
+              [
+                73.54248046875,
+                19.435514339097825
+              ],
+              [
+                78.33251953125,
+                18.687878686034182
+              ],
+              [
+                77.84912109375,
+                19.78738018198621
+              ],
+              [
+                75.95947265625,
+                20.406420474920292
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { 
+          "show_on_map": false,
+          "description": "<strong>Popup</strong><p><a>Popup</a> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>"},
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                71.8505859375,
+                24.70691524106633
+              ],
+              [
+                70.24658203125,
+                23.483400654325642
+              ],
+              [
+                71.78466796874999,
+                22.370396344320053
+              ],
+              [
+                73.2568359375,
+                23.241346102386135
+              ],
+              [
+                71.8505859375,
+                24.70691524106633
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { 
+          "show_on_map": true,
+          "description": "<strong>Popup</strong><p><a>Popup</a> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>"},
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                78.837890625,
+                18.542116654448996
+              ],
+              [
+                76.75048828125,
+                17.95783210227242
+              ],
+              [
+                79.27734374999999,
+                16.93070509876554
+              ],
+              [
+                80.79345703125,
+                17.11979250078707
+              ],
+              [
+                81.1669921875,
+                17.70682812401954
+              ],
+              [
+                81.36474609375,
+                18.291949733550336
+              ],
+              [
+                80.33203125,
+                18.625424540701264
+              ],
+              [
+                78.837890625,
+                18.542116654448996
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  }

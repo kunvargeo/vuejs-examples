@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Main route</p>
-    <a :href="'/about'">about</a><br />
+    <a :href="'/about'">about</a><br>
     <a :href="'/home'">Home</a>
   </div>
 </template>

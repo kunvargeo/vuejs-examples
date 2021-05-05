@@ -1,49 +1,99 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" class="logo" />
+    <img
+      alt="Vue logo"
+      src="./assets/logo.png"
+      class="logo"
+    >
     <HelloWorld />
     <!-- Nav Bar Start-->
     <div class="navbar">
-      <a class="heading" @click="open('model')">Model Binding</a>
-      <a class="heading" @click="open('data')">Data Binding</a>
-      <a class="heading" @click="open('raw-html')">Raw HTML Binding</a>
-      <a class="heading" @click="open('inline-style')"
-        >InLine Style Rendering</a
-      >
-      <a class="heading" @click="open('dynamic-class')"
-        >Dynamic Class Binding</a
-      >
-      <a class="heading" @click="open('list')">List Rendering</a>
-      <a class="heading" @click="open('condition')">Conditional Rendering</a>
+      <a
+        class="heading"
+        @click="open('model')"
+      >Model Binding</a>
+      <a
+        class="heading"
+        @click="open('data')"
+      >Data Binding</a>
+      <a
+        class="heading"
+        @click="open('raw-html')"
+      >Raw HTML Binding</a>
+      <a
+        class="heading"
+        @click="open('inline-style')"
+      >InLine Style Rendering</a>
+      <a
+        class="heading"
+        @click="open('dynamic-class')"
+      >Dynamic Class Binding</a>
+      <a
+        class="heading"
+        @click="open('list')"
+      >List Rendering</a>
+      <a
+        class="heading"
+        @click="open('condition')"
+      >Conditional Rendering</a>
     </div>
     <div class="navbar">
-      <a class="heading" @click="open('parent-child')"
-        >Parent Child relationship</a
-      >
-      <a class="heading" @click="open('child-parent')"
-        >Child Parent relationship</a
-      >
-      <a class="heading" @click="open('component-state')"
-        >Component State management</a
-      >
-      <a class="heading" @click="open('alert-box')">Alert Box</a>
-      <a class="heading" @click="open('crud')">CRUD Example</a>
-      <a class="heading" @click="open('form')">Form elements Example</a>
-      <a class="heading" @click="open('api')">API Example</a>
+      <a
+        class="heading"
+        @click="open('parent-child')"
+      >Parent Child relationship</a>
+      <a
+        class="heading"
+        @click="open('child-parent')"
+      >Child Parent relationship</a>
+      <a
+        class="heading"
+        @click="open('component-state')"
+      >Component State management</a>
+      <a
+        class="heading"
+        @click="open('alert-box')"
+      >Alert Box</a>
+      <a
+        class="heading"
+        @click="open('crud')"
+      >CRUD Example</a>
+      <a
+        class="heading"
+        @click="open('form')"
+      >Form elements Example</a>
+      <a
+        class="heading"
+        @click="open('api')"
+      >API Example</a>
     </div>
     <div class="navbar">
-      <a class="heading" @click="open('routing')">Routing</a>
-      <a class="heading" @click="open('mapbox')">Mapbox</a>
-      <a class="heading" @click="open('mapbox')">Tailwind Examples</a>
+      <a
+        class="heading"
+        @click="open('routing')"
+      >Routing</a>
+      <a
+        class="heading"
+        @click="open('mapbox')"
+      >Mapbox</a>
+      <a
+        class="heading"
+        @click="open('mapbox')"
+      >Tailwind Examples</a>
     </div>
-    <div class="flex justify-end text-xs px-4">V{{ version }}</div>
+    <div class="flex justify-end text-xs px-4">
+      V{{ version }}
+    </div>
     <!-- End -->
 
     <!-- Sections -->
     <template v-if="openBlock === 'model'">
       <div class="section">
         <h2>Model Example</h2>
-        <input v-model="name" type="text" />
+        <input
+          v-model="name"
+          type="text"
+        >
         <p>Model value is : {{ getName }}</p>
       </div>
     </template>
@@ -70,8 +120,7 @@
           class="static"
           @mouseover="addclass"
           @mouseleave="addclass"
-          >I am a simple text, hover on me, adding class dynamically</span
-        >
+        >I am a simple text, hover on me, adding class dynamically</span>
       </div>
     </template>
 
@@ -79,7 +128,11 @@
       <h2>List Example</h2>
       <div class="section">
         <ol>
-          <li v-for="user in users" :key="user.id" class="listitems">
+          <li
+            v-for="user in users"
+            :key="user.id"
+            class="listitems"
+          >
             <p>Name : {{ user.name }}</p>
             <p>Email : {{ user.email }}</p>
             <p>
@@ -93,20 +146,27 @@
 
     <template v-if="openBlock === 'condition'">
       <h2>Conditional Example</h2>
-      <button @click="toggleMe">Toggle Me</button>
+      <button
+        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="toggleMe"
+      >
+        Toggle Me
+      </button>
       <div class="section">
         <span v-if="toggle">Yes, It's me &#128540;</span>
         <span v-else>Oh no 😢</span>
       </div>
-      <h1 v-show="show">Hello!</h1>
+      <h1 v-show="show">
+        Hello!
+      </h1>
     </template>
 
     <template v-if="openBlock === 'inline-style'">
       <h2>Inline Style Example</h2>
       <div class="section">
-        <span :style="{ color: 'red', backgroundColor: 'cyan' }"
-          >Applied inline Styles</span
-        >
+        <span
+          :style="{ color: 'red', backgroundColor: 'cyan' }"
+        >Applied inline Styles</span>
       </div>
     </template>
 

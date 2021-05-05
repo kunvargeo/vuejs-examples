@@ -3,6 +3,18 @@
     <div class="mb-4">
       <button
         class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="loadDataToMap()"
+      >
+        Load Data to map
+      </button>
+      <button
+        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="zoomToPloygon()"
+      >
+        Zoom To Polygon
+      </button>
+      <button
+        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
         @click="addLayers()"
       >
         Add layers
@@ -26,6 +38,7 @@
 
 <script>
 import Mapbox from "mapbox-gl";
+import covid19States from "./covid19_states.json";
 export default {
   data: function() {
     return {
@@ -39,21 +52,47 @@ export default {
         "#feb24c",
         "#fd8d3c",
         "#f03b20",
-        "#bd0026"
+        "#bd0026",
       ],
-      accessToken:
-        "pk.eyJ1Ijoia3VudmFyIiwiYSI6ImNrbzJ2MGF2djEzYjIycG9iaDliZGsxb3oifQ.7XZhAg0bhElHLnx3UXF7mg", // your access token. Needed if you using Mapbox maps
-      mapStyle: "mapbox://styles/mapbox/streets-v11", // your map style
-      geoJsonSource: {
+    };
+  },
+  mounted() {
+    Mapbox.accessToken =
+      "pk.eyJ1Ijoia3VudmFyIiwiYSI6ImNrbzJ2MGF2djEzYjIycG9iaDliZGsxb3oifQ.7XZhAg0bhElHLnx3UXF7mg";
+    const map = new Mapbox.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [78.9629, 20.5937], // starting position
+      zoom: 2, // starting zoom
+    });
+    // Add zoom and rotation controls to the map.
+    map.addControl(new Mapbox.NavigationControl());
+    // map.on("mouseenter", "custom-layer", (event) => {
+    //   console.log("simpleee", event);
+    // });
+    map.on("click", "custom-layer", (e) => {
+      var description = e.features[0].properties.description;
+      new Mapbox.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+    });
+    this.mapbox = map;
+    map.on("load", () => {
+      map.addSource("thisIsMySource", {
         type: "geojson",
         data: {
-          id: "thisIsMySource",
           type: "FeatureCollection",
           features: [
             {
               type: "Feature",
               properties: {
-                description: "Hey! I am kunvar singh"
+                show_on_map: true,
+                description: `<strong>Popup</strong>
+                <p>
+                <a href="http://www.truckeroodc.com/www/" target="_blank">Popup</a> 
+                Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.
+                </p>`,
               },
               geometry: {
                 type: "Polygon",
@@ -64,96 +103,28 @@ export default {
                     [79.56298828125, 21.820707853875017],
                     [84.39697265625, 22.187404991398775],
                     [85.8251953125, 24.56710835257599],
-                    [81.5185546875, 25.720735134412106]
-                  ]
-                ]
-              }
-            }
-          ]
-        }
-      },
-      geoJsonLayer: {
+                    [81.5185546875, 25.720735134412106],
+                  ],
+                ],
+              },
+            },
+          ],
+        },
+      });
+      map.addLayer({
         id: "custom-layer",
         type: "fill",
         source: "thisIsMySource", // reference the data source
+        filter: ["==", "show_on_map", true],
         layout: {},
         paint: {
           "fill-color": "#0080ff", // blue color fill
-          "fill-opacity": 0.5
-        }
-      }
-    };
+          "fill-opacity": 0.5,
+        },
+      });
+    });
   },
-  setup() {},
-  created() {
-    // We need to set mapbox-gl library here in order to use it in template
-    setTimeout(() => {
-      Mapbox.accessToken =
-        "pk.eyJ1Ijoia3VudmFyIiwiYSI6ImNrbzJ2MGF2djEzYjIycG9iaDliZGsxb3oifQ.7XZhAg0bhElHLnx3UXF7mg";
-      const map = new Mapbox.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/streets-v11"
-      });
-
-      // map.on("mouseenter", "custom-layer", (event) => {
-      //   console.log("simpleee", event);
-      // });
-      map.on("click", "custom-layer", e => {
-        new Mapbox.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(
-            `<div id="popup-content">
-          <strong>Truckeroo</strong>
-          <p>
-          <a href="http://www.truckeroodc.com/www/" target="_blank">Truckeroo</a> 
-          brings dozens of food trucks, live music, and games to half and M Street SE (across from Navy Yard Metro Station) today from 11:00 a.m. to 11:00 p.m.
-          </p>
-          </div>`
-          )
-          .addTo(map);
-      });
-      this.mapbox = map;
-      map.on("load", () => {
-        map.addSource("thisIsMySource", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {
-                  description: "Hey! I am kunvar singh"
-                },
-                geometry: {
-                  type: "Polygon",
-                  coordinates: [
-                    [
-                      [81.5185546875, 25.720735134412106],
-                      [78.44238281249999, 24.287026865376436],
-                      [79.56298828125, 21.820707853875017],
-                      [84.39697265625, 22.187404991398775],
-                      [85.8251953125, 24.56710835257599],
-                      [81.5185546875, 25.720735134412106]
-                    ]
-                  ]
-                }
-              }
-            ]
-          }
-        });
-        map.addLayer({
-          id: "custom-layer",
-          type: "fill",
-          source: "thisIsMySource", // reference the data source
-          layout: {},
-          paint: {
-            "fill-color": "#0080ff", // blue color fill
-            "fill-opacity": 0.5
-          }
-        });
-      });
-    }, 5000);
-  },
+  created() {},
   methods: {
     changeColorOfLayer: function() {
       if (this.mapbox.getLayer("custom-layer")) {
@@ -175,15 +146,42 @@ export default {
           id: "custom-layer",
           type: "fill",
           source: "thisIsMySource", // reference the data source
+          filter: ["==", "show_on_map", true],
           layout: {},
           paint: {
             "fill-color": "#0080ff", // blue color fill
-            "fill-opacity": 0.5
-          }
+            "fill-opacity": 0.5,
+          },
         });
       }
-    }
-  }
+    },
+    loadDataToMap: function() {
+      this.mapbox.getSource("thisIsMySource").setData(covid19States);
+      this.mapbox.addLayer({
+        id: "custom-layer",
+        type: "fill",
+        source: "thisIsMySource", // reference the data source
+        filter: ["==", "show_on_map", true],
+        layout: {},
+        paint: {
+          "fill-color": "#0080ff", // blue color fill
+          "fill-opacity": 0.5,
+        },
+      });
+    },
+    zoomToPloygon: function() {
+      this.mapbox.flyTo({
+        // These options control the ending camera position: centered at
+        center: [78.9629, 20.5937],
+        zoom: 5,
+        bearing: 0,
+        // These options control the flight curve, making it move
+        // slowly and zoom out almost completely before starting
+        // to pan.
+        speed: 0.2, // make the flying slow
+      });
+    },
+  },
 };
 </script>
 <style scoped>

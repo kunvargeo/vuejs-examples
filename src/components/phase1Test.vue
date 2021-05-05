@@ -13,7 +13,10 @@
 
     <div id="test">
       <ul>
-        <li v-for="item in todos" :key="item">
+        <li
+          v-for="item in todos"
+          :key="item"
+        >
           {{ item }}
         </li>
       </ul>
@@ -24,7 +27,7 @@
       <button @click="reverseMessage">
         Reverse Message
       </button>
-      <input v-model="message" />
+      <input v-model="message">
     </div>
   </div>
 </template>

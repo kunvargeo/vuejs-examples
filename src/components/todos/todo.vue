@@ -1,10 +1,17 @@
 <template>
   <div id="test">
-    <span class="name" :class="{ active: hover }" @mouseover="nameHighlight">{{
+    <span
+      class="name"
+      :class="{ active: hover }"
+      @mouseover="nameHighlight"
+    >{{
       name
     }}</span>
     <ul>
-      <li v-for="item in geoceryList" :key="item">
+      <li
+        v-for="item in geoceryList"
+        :key="item"
+      >
         {{ item }}
       </li>
     </ul>

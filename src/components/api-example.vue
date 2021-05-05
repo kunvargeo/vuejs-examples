@@ -6,7 +6,11 @@
         <th>Title</th>
         <th>Description</th>
       </tr>
-      <tr v-for="post in postData" :key="post.id" @click="postClick(post.id)">
+      <tr
+        v-for="post in postData"
+        :key="post.id"
+        @click="postClick(post.id)"
+      >
         <td class="listitems">
           {{ post.id }}
         </td>
@@ -23,15 +27,20 @@
       <button @click="postId = 0">
         Go Back to Posts
       </button>
-      <div v-for="comment in postComments" :key="comment.id" class="card">
+      <div
+        v-for="comment in postComments"
+        :key="comment.id"
+        class="card"
+      >
         <div class="profile">
           <span class="username">{{
             comment.name.substr(0, 2).toUpperCase()
           }}</span>
         </div>
-        <h3 class="title">Post By : {{ comment.name }}</h3>
-        <span class="small-email">{{ comment.email }}</span
-        ><br />
+        <h3 class="title">
+          Post By : {{ comment.name }}
+        </h3>
+        <span class="small-email">{{ comment.email }}</span><br>
         <span> Comments : {{ comment.body }}</span>
       </div>
     </div>

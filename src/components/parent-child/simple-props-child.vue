@@ -1,9 +1,12 @@
 <template>
   <div>
     <h3>{{ message }}</h3>
-    <br />
+    <br>
     <ul>
-      <li v-for="user in users" :key="user.id">
+      <li
+        v-for="user in users"
+        :key="user.id"
+      >
         {{ user.name }}
       </li>
     </ul>

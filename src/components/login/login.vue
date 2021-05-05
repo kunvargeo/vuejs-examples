@@ -1,6 +1,9 @@
 <template>
   <!-- Login Form -->
-  <div v-if="!register" class="login-form">
+  <div
+    v-if="!register"
+    class="login-form"
+  >
     <h1>{{ message }}</h1>
     <div class="form">
       <span class="form-label">Username : </span>
@@ -9,7 +12,7 @@
         type="username"
         placeholder="for eg. kunvar"
         class="form-input"
-      />
+      >
     </div>
     <div class="form">
       <span class="form-label">Password : </span>
@@ -18,10 +21,13 @@
         type="password"
         placeholder="*****"
         class="form-input"
-      />
+      >
     </div>
     <a @click="onRegister">Register</a>
-    <button class="loginbtn" @click="login">
+    <button
+      class="loginbtn"
+      @click="login"
+    >
       login
     </button>
     <h1 v-if="isLogin">
@@ -42,7 +48,7 @@
         type="username"
         placeholder="for eg. kunvar"
         class="form-input"
-      />
+      >
     </div>
     <div class="form">
       <span class="form-label">Password : </span>
@@ -51,7 +57,7 @@
         type="password"
         placeholder="*****"
         class="form-input"
-      />
+      >
     </div>
     <a @click="onRegister">Login</a>
     <h1 v-if="isLogin">
@@ -60,10 +66,16 @@
     <h1 v-else>
       Oh no 😢
     </h1>
-    <button class="loginbtn" @click="close">
+    <button
+      class="loginbtn"
+      @click="close"
+    >
       Close
     </button>
-    <button class="loginbtn" @click="close">
+    <button
+      class="loginbtn"
+      @click="close"
+    >
       Register
     </button>
   </div>
