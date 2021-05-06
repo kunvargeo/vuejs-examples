@@ -46,17 +46,40 @@
         <option value="false">Hide</option>
       </select>
     </div>
-    <div id="map" class="w-auto" />
+    <button
+      class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+      @click="loadVectorLayers()"
+    >
+      Load Vector Layer
+    </button>
+    <button
+      class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+      @click="loadRasterLayers()"
+    >
+      Load Raster Layer
+    </button>
+    <label for="new-todo">URL: </label>
+    <input id="new-todo" v-model="url" class="mr-2 border" />
+    <button
+      @click="loadDataFromUrl()"
+      class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+    >
+      Add
+    </button>
+    <div id="map" class="w-auto mt-2" />
   </div>
 </template>
 
 <script>
 import Mapbox from "mapbox-gl";
 import covid19States from "./covid19_states.json";
+import axios from "axios";
 export default {
   data: function() {
     return {
       filter: "",
+      url:
+        "https://gist.githubusercontent.com/kunvargeo/d705ee101ee9fa238b997dbaf36b934a/raw/557d4c404f35bbcb7b51f74d73e444da958584c2/map.geojson",
       colors: [
         "#ffffcc",
         "#a1dab4",
@@ -148,7 +171,101 @@ export default {
   },
   created() {},
   methods: {
-    onChange() {
+    loadRasterLayers: function() {
+      this.mapbox.flyTo({
+        center: [-74.5, 40],
+        zoom: 2,
+        bearing: 0,
+        speed: 0.2, // make the flying slow
+      });
+     new Mapbox.Map({
+        container: 'map', // container id
+        style: {
+            'version': 8,
+            'sources': {
+                'raster-tiles': {
+                    'type': 'raster',
+                    'tiles': [
+                        'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
+                    ],
+                    'tileSize': 256,
+                    'attribution':
+                        'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
+                }
+            },
+            'layers': [
+                {
+                    'id': 'simple-tiles',
+                    'type': 'raster',
+                    'source': 'raster-tiles',
+                    'minzoom': 0,
+                    'maxzoom': 22
+                }
+            ]
+        },
+        center: [-74.5, 40], // starting position
+        zoom: 2 // starting zoom
+    });
+    },
+    // Below code is for loading the vector layers
+    loadVectorLayers: function() {
+      this.mapbox.flyTo({
+        center: [79.0193, 18.1124],
+        zoom: 7,
+        bearing: 0,
+        speed: 0.2, // make the flying slow
+      });
+      this.mapbox.addSource("mapillary", {
+        type: "vector",
+        tiles: ["https://d25uarhxywzl1j.cloudfront.net/v0.1/{z}/{x}/{y}.mvt"],
+      });
+      this.mapbox.addLayer(
+        {
+          id: "mapillary",
+          type: "line",
+          source: "mapillary",
+          "source-layer": "mapillary-sequences",
+          layout: {
+            "line-cap": "round",
+            "line-join": "round",
+          },
+          paint: {
+            "line-opacity": 0.6,
+            "line-color": "rgb(271, 41, 41)",
+            "line-width": 2,
+          },
+        },
+        "waterway-label"
+      );
+    },
+    loadDataFromUrl: function() {
+      axios.get(this.url).then((res) => {
+        if (this.mapbox.getSource("thisIsMySource")) {
+          if (res.data && res.data.features && res.data.features.length) {
+            this.mapbox.getSource("thisIsMySource").setData(res.data);
+            res.data.features.forEach((feature, index) => {
+              if (feature.geometry.type != "Point") {
+                this.mapbox.addLayer({
+                  id: "custom-layer" + index,
+                  type: "fill",
+                  source: "thisIsMySource", // reference the data source
+                  layout: {},
+                  paint: {
+                    "fill-color": this.colors[index], // blue color fill
+                    "fill-opacity": 0.2,
+                  },
+                });
+              } else {
+                new Mapbox.Marker()
+                  .setLngLat(feature.geometry.coordinates)
+                  .addTo(this.mapbox);
+              }
+            });
+          }
+        }
+      });
+    },
+    onChange: function() {
       if (this.mapbox.getLayer("custom-layer")) {
         this.removeLayers();
         this.addLayer();
