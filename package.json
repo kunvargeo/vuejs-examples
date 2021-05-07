@@ -9,6 +9,8 @@
     "release": "shipjs prepare"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-draw": "^1.2.2",
+    "@turf/turf": "^6.3.0",
     "core-js": "^3.6.5",
     "eslint-plugin-prettier": "^3.4.0",
     "mapbox-gl": "^2.2.0",

@@ -78,6 +78,10 @@
       >Mapbox</a>
       <a
         class="heading"
+        @click="open('generic-component')"
+      >Generic Component</a>
+      <a
+        class="heading"
         @click="open('mapbox')"
       >Tailwind Examples</a>
     </div>
@@ -237,6 +241,11 @@
         <mapbox />
       </div>
     </template>
+    <template v-if="openBlock === 'generic-component'">
+      <div class="section">
+        <genericComponent />
+      </div>
+    </template>
 
     <!-- <login message="Welcome To Login"></login>
      <div id="components-demo">
@@ -267,6 +276,7 @@ import formExample from "./components/form-example.vue";
 import routing from "./components/routing/routing.vue";
 import mapbox from "./components/mapbox/mapbox.vue";
 import packageJson from ".././package.json";
+import genericComponent from './components/mapbox/generic.vue'
 
 // export default {
 //   name: 'App',
@@ -290,6 +300,7 @@ export default {
     formExample,
     routing,
     mapbox,
+    genericComponent
   },
   data: function() {
     return {
