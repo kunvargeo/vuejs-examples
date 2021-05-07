@@ -58,6 +58,9 @@ export default {
                         res.data.data.get_nearby_restaurants.forEach((data)=>{
                          this.marker = new Mapbox.Marker()
                             .setLngLat([data.lat,data.long])
+                            .setPopup(new Mapbox.Popup()
+                            .setLngLat([data.lat,data.long])
+                            .setHTML(data.name))
                             .addTo(map);
                              })
                         }
