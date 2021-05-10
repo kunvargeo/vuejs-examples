@@ -7,6 +7,7 @@
       </div>
       <div class="block lg:hidden">
         <button
+        @click="openMenu()"
           class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
         >
           <svg
@@ -18,29 +19,61 @@
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </button>
+        <div v-if="menu" class="absolute right-0 z-50 w-auto mr-4 origin-top-right rounded-md shadow-lg"> 
+             <div class="bg-white rounded-md shadow-xs">
+                <div
+                  class="py-1 mr-5"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <div
+                    class="block px-4 py-2 text-sm leading-5 text-left text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-300 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                    role="menuitem"
+                    @click="open('mapbox')"
+                  >
+                    Mapbox
+                  </div>
+                  <div
+                    class="block px-4 py-2 text-sm leading-5 text-left text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-300 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                    role="menuitem"
+                    @click="open('generic-component')"
+                  >
+                    Generic Component
+                  </div>
+                  <div
+                    class="block px-4 py-2 text-sm leading-5 text-left text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-300 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                    role="menuitem"
+                     @click="open('tailwind-examples')"
+                  >
+                    Tailwind Examples
+                  </div>
+                </div>
+              </div>
+        </div>
       </div>
-      <div class="flex-grow block w-full lg:flex lg:items-center lg:w-auto">
+      <div class="flex-grow block w-full lg:flex lg:items-center lg:w-auto md:hidden sm:hidden xs:hidden">
         <div
           class="relative flex inline-block w-auto text-sm lg:flex-grow justify-left"
         >
           <a
-            class="block mt-4 mr-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
+            class="block mt-4 mr-4 text-base lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
             @click="open('mapbox')"
             >Mapbox</a
           >
           <a
-            class="block mt-4 mr-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
+            class="block mt-4 mr-4 text-base lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
             @click="open('generic-component')"
             >Generic Component</a
           >
           <a
-            class="block mt-4 mr-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
-            @click="open('mapbox')"
+            class="block mt-4 mr-4 text-base lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
+            @click="open('tailwind-examples')"
             >Tailwind Examples</a
           >
           <select
             v-model="filter"
-            class="block h-8 mt-4 mr-4 border rounded lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
+            class="block h-8 mt-4 mr-4 text-base border rounded lg:inline-block lg:mt-0 text-teal-lighter hover:text-green-600 heading"
             @change="open($event.target.value)"
           >
             <option disabled value="">Select</option>
@@ -51,7 +84,7 @@
             <option value="dynamic-class">Dynamic Class Binding</option>
             <option value="list">List Rendering</option>
             <option value="condition">Conditional Rendering</option>
-            <option value="routing">Rounting</option>
+            <option value="routing">Routing</option>
           </select>
         </div>
         <div class="relative flex justify-end inline-block w-auto cursor-pointer profile-pic" @click="clickProfile()">
@@ -60,7 +93,7 @@
             src="./assets/download.png"
             class="flex justify-end profile-pic"
           />
-          <div v-if="toggleProfile" class="absolute right-0 z-50 w-auto mt-10 origin-top-right rounded-md shadow-lg">
+          <div v-if="toggleProfile" class="absolute right-0 z-50 w-auto origin-top-right rounded-md shadow-lg mt-7">
                <div class="bg-white rounded-md shadow-xs">
                 <div
                   class="py-1"
@@ -124,7 +157,7 @@
     <template v-if="openBlock === 'model'">
       <div class="section">
         <h2>Model Example</h2>
-        <input v-model="name" type="text" />
+        <input v-model="name" type="text" class="w-auto border rounded" placeholder="Type something..."/>
         <p>Model value is : {{ getName }}</p>
       </div>
     </template>
@@ -158,17 +191,19 @@
 
     <template v-if="openBlock === 'list'">
       <h2>List Example</h2>
-      <div class="section">
-        <ol>
-          <li v-for="user in users" :key="user.id" class="listitems">
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-3 sm:grid-cols-3 sm:gap-6">
+        <div v-for="user in users" :key="user.id" class="flex">
+        <section>
+            <div class="relative w-auto px-6 pt-8 pb-6 m-2 text-left shadow-sm rounded-xl ring-1 ring-black ring-opacity-5">
             <p>Name : {{ user.name }}</p>
             <p>Email : {{ user.email }}</p>
             <p>
               Address : {{ user.address.street + " ," + user.address.city }}
             </p>
             <p>Website {{ user.website }}</p>
-          </li>
-        </ol>
+            </div>
+        </section>
+        </div>
       </div>
     </template>
 
@@ -268,6 +303,12 @@
         <genericComponent />
       </div>
     </template>
+       <template v-if="openBlock === 'tailwind-examples'">
+      <div class="section">
+        <taildwindExamples />
+      </div>
+    </template>
+    
     <div
       class="flex items-center justify-between w-full h-20 px-4 border-t border-gray-300 dark:border-gray-700"
     >
@@ -381,6 +422,7 @@ import routing from "./components/routing/routing.vue";
 import mapbox from "./components/mapbox/mapbox.vue";
 import packageJson from ".././package.json";
 import genericComponent from "./components/mapbox/generic.vue";
+import taildwindExamples from './components/tailwind/tailwind-examples'
 
 // export default {
 //   name: 'App',
@@ -404,6 +446,7 @@ export default {
     routing,
     mapbox,
     genericComponent,
+    taildwindExamples
   },
   data: function () {
     return {
@@ -412,7 +455,7 @@ export default {
       dataBinding: "I am data binding",
       name: "",
       rawHtml: `<div class="card">
-                <img src="https://www.w3schools.com//w3images/team2.jpg" alt="John" style="width:25%">
+                <img src="https://www.w3schools.com//w3images/team2.jpg" alt="John" style="width:10%;height:125px;display:flex;border-radius:50%;margin-left:auto;margin-right:auto">
                 <h1>John Doe</h1>
                 <p class="title">CEO & Founder, Example</p>
                 <p>Harvard University</p>
@@ -427,7 +470,8 @@ export default {
       toggle: false,
       show: false,
       filter:'',
-      toggleProfile : false
+      toggleProfile : false,
+      menu:false
     };
   },
   computed: {
@@ -452,6 +496,9 @@ export default {
     clickProfile: function () {
       this.toggleProfile = !this.toggleProfile
     },
+    openMenu :function(){
+      this.menu = !this.menu
+    }
   },
 };
 </script>
@@ -470,9 +517,9 @@ export default {
   margin-left: 10px;
 }
 .profile-pic {
-  height: 50px;
+  height: 30px;
   border-radius: 50%;
-  width: 20%;
+  width: 12%;
 }
 .navbar {
   display: flex;

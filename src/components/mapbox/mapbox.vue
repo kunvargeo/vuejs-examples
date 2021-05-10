@@ -1,71 +1,76 @@
 <template>
   <div>
-    <div class="mb-4">
+    <div class="grid m-4 lg:grid-cols-4 sm:grid-cols-2">
       <button
-        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
         @click="loadDataToMap()"
       >
         Load Data to map
       </button>
       <button
-        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
         @click="loadIconToMap()"
       >
         Load Symbol/icons on map
       </button>
       <button
-        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
         @click="zoomToPloygon()"
       >
         Zoom To Polygon
       </button>
       <button
-        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
         @click="addLayer()"
       >
         Add layer
       </button>
       <button
-        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
         @click="removeLayers()"
       >
         Remove layers
       </button>
       <button
-        class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
         @click="changeColorOfLayer()"
       >
         Change color of layers
       </button>
+     
+          <button
+      class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+      @click="loadVectorLayers()"
+    >
+      Load Vector Layer
+    </button>
+    <button
+      class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+      @click="loadRasterLayers()"
+    >
+      Load Raster Layer
+    </button>
+     <div class="flex justify-start m-3">
       <label for="new-todo">Layer Filter : </label>
-      <select v-model="filter" class="h-8 border rounded" @change="onChange($event)">
+      <select v-model="filter" class="h-8 ml-2 border rounded" @change="onChange($event)">
         <option disabled value="">
           Select
         </option>
         <option value="true">Show</option>
         <option value="false">Hide</option>
       </select>
-    </div>
-    <button
-      class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
-      @click="loadVectorLayers()"
-    >
-      Load Vector Layer
-    </button>
-    <button
-      class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
-      @click="loadRasterLayers()"
-    >
-      Load Raster Layer
-    </button>
+      </div>
+    <div class="flex justify-start m-3">
     <label for="new-todo">URL: </label>
-    <input id="new-todo" v-model="url" class="mr-2 border" />
+    <input id="new-todo" v-model="url" class="h-8 ml-2 mr-2 border" />
     <button
       @click="loadDataFromUrl()"
-      class="inline-flex items-center px-4 py-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+      class="inline-flex items-center px-4 py-1 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
     >
       Add
     </button>
+    </div>
+    </div>
     <div id="map" class="w-auto mt-2" />
   </div>
 </template>
