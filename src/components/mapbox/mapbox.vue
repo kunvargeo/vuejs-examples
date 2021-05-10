@@ -38,7 +38,7 @@
         Change color of layers
       </button>
       <label for="new-todo">Layer Filter : </label>
-      <select v-model="filter" class="h-8 border" @change="onChange($event)">
+      <select v-model="filter" class="h-8 border rounded" @change="onChange($event)">
         <option disabled value="">
           Select
         </option>

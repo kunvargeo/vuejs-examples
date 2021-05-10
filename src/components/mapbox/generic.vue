@@ -1,7 +1,7 @@
 <template>
 <div>
  <label for="new-todo">BaseMap : </label>
-      <select v-model="filter" class="h-8 border" @change="onChange($event)">
+      <select v-model="filter" class="h-8 border rounded" @change="onChange($event)">
         <option disabled value="">
           Select
         </option>
