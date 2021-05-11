@@ -15,7 +15,7 @@
       </button>
       <button
         class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
-        @click="zoomToPloygon()"
+        @click="zoomToPolygon()"
       >
         Zoom To Polygon
       </button>
@@ -37,39 +37,43 @@
       >
         Change color of layers
       </button>
-     
-          <button
-      class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
-      @click="loadVectorLayers()"
-    >
-      Load Vector Layer
-    </button>
-    <button
-      class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
-      @click="loadRasterLayers()"
-    >
-      Load Raster Layer
-    </button>
-     <div class="flex justify-start m-3">
-      <label for="new-todo">Layer Filter : </label>
-      <select v-model="filter" class="h-8 ml-2 border rounded" @change="onChange($event)">
-        <option disabled value="">
-          Select
-        </option>
-        <option value="true">Show</option>
-        <option value="false">Hide</option>
-      </select>
+
+      <button
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="loadVectorLayers()"
+      >
+        Load Vector Layer
+      </button>
+      <button
+        class="inline-flex items-center px-4 py-2 m-2 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        @click="loadRasterLayers()"
+      >
+        Load Raster Layer
+      </button>
+      <div class="flex justify-start m-3">
+        <label for="new-todo">Layer Filter : </label>
+        <select
+          v-model="filter"
+          class="h-8 ml-2 border rounded"
+          @change="onChange($event)"
+        >
+          <option disabled value="">
+            Select
+          </option>
+          <option value="true">Show</option>
+          <option value="false">Hide</option>
+        </select>
       </div>
-    <div class="flex justify-start m-3">
-    <label for="new-todo">URL: </label>
-    <input id="new-todo" v-model="url" class="h-8 ml-2 mr-2 border" />
-    <button
-      @click="loadDataFromUrl()"
-      class="inline-flex items-center px-4 py-1 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
-    >
-      Add
-    </button>
-    </div>
+      <div class="flex justify-start m-3">
+        <label for="new-todo">URL: </label>
+        <input id="new-todo" v-model="url" class="h-8 ml-2 mr-2 border" />
+        <button
+          @click="loadDataFromUrl()"
+          class="inline-flex items-center px-4 py-1 mr-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700"
+        >
+          Add
+        </button>
+      </div>
     </div>
     <div id="map" class="w-auto mt-2" />
   </div>
@@ -119,6 +123,84 @@ export default {
     });
     map.on("mouseleave", "icon-layer", () => {
       this.popup.remove();
+    });
+    map.on("click", function(e) {
+      // The event object (e) contains information like the
+      // coordinates of the point on the map that was clicked.
+      // console.log('A click event has occurred at ' + e.lngLat);
+      new Mapbox.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+          `<input type='text' id="imageUrl" placeholder="put image url to load on map" style="border:1px solid black"/>`
+        )
+        .addTo(map)
+        .getElement()
+        .addEventListener("input", (e) => {
+          const clickedElementId = e.target.id;
+          switch (clickedElementId) {
+            case "imageUrl":
+              map.loadImage(
+                e.target.value,
+                // "https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png",
+                function(error, image) {
+                  console.log("imagedasdasd", image);
+                  if (error) throw error;
+                  // Add the image to the map style.
+                  if (!map.hasImage("cat")) {
+                    map.addImage("cat", image);
+                  } else {
+                    map.removeImage("cat");
+                    map.addImage("cat", image);
+                  }
+                  if (!map.getSource("point")) {
+                    map.addSource("point", {
+                      type: "geojson",
+                      data: {
+                        type: "FeatureCollection",
+                        features: [
+                          {
+                            type: "Feature",
+                            geometry: {
+                              type: "Point",
+                              coordinates: e.lngLat,
+                            },
+                          },
+                        ],
+                      },
+                    });
+                  } else {
+                    map.getSource("point").setData({
+                      type: "FeatureCollection",
+                      features: [
+                        {
+                          type: "Feature",
+                          geometry: {
+                            type: "Point",
+                            coordinates: e.lngLat,
+                          },
+                        },
+                      ],
+                    });
+                  }
+                  if (map.getLayer("points") === undefined) {
+                    // Add a layer to use the image to represent the data.
+                    map.addLayer({
+                      id: "points",
+                      type: "symbol",
+                      source: "point", // reference the data source
+                      layout: {
+                        "icon-image": "cat", // reference the image
+                        "icon-size": 0.25,
+                      },
+                    });
+                  } else {
+                    map.removeLayer("points");
+                  }
+                }
+              );
+              break;
+          }
+        });
     });
     map.on("click", "custom-layer", (e) => {
       var description = e.features[0].properties.description;
@@ -183,34 +265,34 @@ export default {
         bearing: 0,
         speed: 0.2, // make the flying slow
       });
-     new Mapbox.Map({
-        container: 'map', // container id
+      new Mapbox.Map({
+        container: "map", // container id
         style: {
-            'version': 8,
-            'sources': {
-                'raster-tiles': {
-                    'type': 'raster',
-                    'tiles': [
-                        'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
-                    ],
-                    'tileSize': 256,
-                    'attribution':
-                        'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
-                }
+          version: 8,
+          sources: {
+            "raster-tiles": {
+              type: "raster",
+              tiles: [
+                "https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",
+              ],
+              tileSize: 256,
+              attribution:
+                'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
             },
-            'layers': [
-                {
-                    'id': 'simple-tiles',
-                    'type': 'raster',
-                    'source': 'raster-tiles',
-                    'minzoom': 0,
-                    'maxzoom': 22
-                }
-            ]
+          },
+          layers: [
+            {
+              id: "simple-tiles",
+              type: "raster",
+              source: "raster-tiles",
+              minzoom: 0,
+              maxzoom: 22,
+            },
+          ],
         },
         center: [-74.5, 40], // starting position
-        zoom: 2 // starting zoom
-    });
+        zoom: 2, // starting zoom
+      });
     },
     // Below code is for loading the vector layers
     loadVectorLayers: function() {
@@ -398,7 +480,7 @@ export default {
         });
       }
     },
-    zoomToPloygon: function() {
+    zoomToPolygon: function() {
       this.mapbox.flyTo({
         // These options control the ending camera position: centered at
         center: [78.9629, 20.5937],
