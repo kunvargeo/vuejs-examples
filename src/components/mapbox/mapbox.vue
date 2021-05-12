@@ -88,6 +88,8 @@ export default {
   data: function() {
     return {
       filter: true,
+      markers: [],
+      marker: "",
       url:
         "https://gist.githubusercontent.com/kunvargeo/d705ee101ee9fa238b997dbaf36b934a/raw/557d4c404f35bbcb7b51f74d73e444da958584c2/map.geojson",
       colors: [
@@ -306,6 +308,12 @@ export default {
         "waterway-label"
       );
     },
+    removeAllMarkers: function() {
+      this.markers.forEach((marker) => {
+        marker.remove();
+      });
+      this.markers = [];
+    },
     loadDataFromUrl: function() {
       axios.get(this.url).then((res) => {
         if (this.mapbox.getSource("thisIsMySource")) {
@@ -327,6 +335,7 @@ export default {
                 new Mapbox.Marker()
                   .setLngLat(feature.geometry.coordinates)
                   .addTo(this.mapbox);
+                // this.markers.push(this.marker);
               }
             });
           }
@@ -372,6 +381,16 @@ export default {
       if (this.mapbox.getLayer("simple-tiles")) {
         this.mapbox.removeLayer("simple-tiles");
       }
+      for (let i = 0; i <= 10; i++) {
+        if (this.mapbox.getLayer("custom-layer" + i)) {
+          this.mapbox.removeLayer("custom-layer" + i);
+        }
+      }
+      // custom - layer;
+      // this.markers.forEach((marker) => {
+      //   marker.remove();
+      // });
+      // this.markers = [];
     },
     removeSource: function() {
       if (this.mapbox.getSource("mapillary")) {

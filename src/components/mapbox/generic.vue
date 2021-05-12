@@ -51,11 +51,15 @@ export default {
     map.addControl(draw);
     map.on("draw.delete", () => {
       this.removeAllMarkers();
+      draw.deleteAll();
     });
     map.on("draw.update", updateArea);
     map.on("draw.create", updateArea);
     const scope = this;
     function updateArea(e) {
+      if (draw.getAll() && draw.getAll().features.length > 1) {
+        draw.delete(draw.getAll().features[0].id);
+      }
       scope.removeAllMarkers();
       const features = e.features[0];
       var centroid = turf.centroid(features);
