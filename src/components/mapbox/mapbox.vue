@@ -131,6 +131,7 @@ export default {
       // The event object (e) contains information like the
       // coordinates of the point on the map that was clicked.
       // console.log('A click event has occurred at ' + e.lngLat);
+      const coordinates = e.lngLat;
       new Mapbox.Popup()
         .setLngLat(e.lngLat)
         .setHTML(
@@ -142,11 +143,11 @@ export default {
           const clickedElementId = e.target.id;
           switch (clickedElementId) {
             case "imageUrl":
+              //            console.log('https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',e.target.value)
               map.loadImage(
+                // 'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
                 e.target.value,
-                // "https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png",
-                function(error, image) {
-                  console.log("imagedasdasd", image);
+                (error, image) => {
                   if (error) throw error;
                   // Add the image to the map style.
                   if (!map.hasImage("cat")) {
@@ -155,50 +156,34 @@ export default {
                     map.removeImage("cat");
                     map.addImage("cat", image);
                   }
-                  if (!map.getSource("point")) {
-                    map.addSource("point", {
-                      type: "geojson",
-                      data: {
-                        type: "FeatureCollection",
-                        features: [
-                          {
-                            type: "Feature",
-                            geometry: {
-                              type: "Point",
-                              coordinates: e.lngLat,
-                            },
-                          },
-                        ],
-                      },
-                    });
-                  } else {
-                    map.getSource("point").setData({
+                  // map.addImage('cat', image);
+                  // Add a data source containing one point feature.
+                  map.addSource("point", {
+                    type: "geojson",
+                    data: {
                       type: "FeatureCollection",
                       features: [
                         {
                           type: "Feature",
                           geometry: {
                             type: "Point",
-                            coordinates: e.lngLat,
+                            coordinates: [coordinates.lat, coordinates.lng],
                           },
                         },
                       ],
-                    });
-                  }
-                  if (map.getLayer("points") === undefined) {
-                    // Add a layer to use the image to represent the data.
-                    map.addLayer({
-                      id: "points",
-                      type: "symbol",
-                      source: "point", // reference the data source
-                      layout: {
-                        "icon-image": "cat", // reference the image
-                        "icon-size": 0.25,
-                      },
-                    });
-                  } else {
-                    map.removeLayer("points");
-                  }
+                    },
+                  });
+
+                  // Add a layer to use the image to represent the data.
+                  map.addLayer({
+                    id: "points",
+                    type: "symbol",
+                    source: "point", // reference the data source
+                    layout: {
+                      "icon-image": "cat", // reference the image
+                      "icon-size": 0.25,
+                    },
+                  });
                 }
               );
               break;
