@@ -16,8 +16,10 @@
                   alt="Profile Pic"
                   src="../../assets/download.png"
                   class="flex justify-end ml-32 card-profile-pic"
-                />
-                <h1 class="relative">Profile A</h1>
+                >
+                <h1 class="relative">
+                  Profile A
+                </h1>
               </div>
               <p class="text-left">
                 Lorem ipsum, or lipsum as it is sometimes known, is dummy text
@@ -45,8 +47,10 @@
                   alt="Profile Pic"
                   src="../../assets/download.png"
                   class="flex justify-end ml-32 card-profile-pic"
-                />
-                <h1 class="relative">Profile B</h1>
+                >
+                <h1 class="relative">
+                  Profile B
+                </h1>
               </div>
               <p class="text-left">
                 Lorem ipsum, or lipsum as it is sometimes known, is dummy text
@@ -74,8 +78,10 @@
                   alt="Profile Pic"
                   src="../../assets/download.png"
                   class="flex justify-end ml-32 card-profile-pic"
-                />
-                <h1 class="relative">Profile C</h1>
+                >
+                <h1 class="relative">
+                  Profile C
+                </h1>
               </div>
               <p class="text-left">
                 Lorem ipsum, or lipsum as it is sometimes known, is dummy text
@@ -96,7 +102,7 @@
             alt="Profile Pic"
             class="object-cover w-full h-48 md:h-full md:w-48"
             src="../../assets/download.png"
-          />
+          >
         </div>
         <div class="p-8">
           <div class="text-sm font-semibold text-indigo-500 uppercase">
@@ -104,8 +110,7 @@
           </div>
           <a
             class="block mt-1 text-lg font-medium leading-tight text-black hover:underline"
-            >Finding customers for your new business</a
-          >
+          >Finding customers for your new business</a>
           <p class="mt-2 text-gray-500">
             Getting a new business off the ground is a lot of hard work. Here
             are five ideas you can use to find your first customers.

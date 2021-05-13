@@ -6,14 +6,26 @@
       class="h-8 border rounded"
       @change="onChange($event)"
     >
-      <option disabled value="">
+      <option
+        disabled
+        value=""
+      >
         Select
       </option>
-      <option value="Dark">Dark</option>
-      <option value="Street">Street</option>
-      <option value="Satellite">Satellite</option>
+      <option value="Dark">
+        Dark
+      </option>
+      <option value="Street">
+        Street
+      </option>
+      <option value="Satellite">
+        Satellite
+      </option>
     </select>
-    <div id="map" class="w-auto mt-2" />
+    <div
+      id="map"
+      class="w-auto mt-2"
+    />
   </div>
 </template>
 <script>

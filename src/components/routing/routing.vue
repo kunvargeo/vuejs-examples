@@ -2,11 +2,26 @@
   <div class="ml-5">
     <p>Main route</p>
     <div class="flex">
-    <a :href="'/about'" class="mr-5 hover:text-green-500">About</a>
-    <a :href="'/home'" class="mr-5 hover:text-green-500">Home</a>
-     <a :href="'/about'" class="mr-5 hover:text-green-500">Contact Us</a>
-      <a :href="'/about'" class="mr-5 hover:text-green-500">Service</a>
-       <a :href="'/about'" class="mr-5 hover:text-green-500">Testimonials</a>
+      <a
+        :href="'/about'"
+        class="mr-5 hover:text-green-500"
+      >About</a>
+      <a
+        :href="'/home'"
+        class="mr-5 hover:text-green-500"
+      >Home</a>
+      <a
+        :href="'/about'"
+        class="mr-5 hover:text-green-500"
+      >Contact Us</a>
+      <a
+        :href="'/about'"
+        class="mr-5 hover:text-green-500"
+      >Service</a>
+      <a
+        :href="'/about'"
+        class="mr-5 hover:text-green-500"
+      >Testimonials</a>
     </div>
   </div>
 </template>
