@@ -68,7 +68,7 @@
         </div>
       </form> -->
     </div>
-    <div class="grid m-3 lg:grid-cols-3 sm:grid-cols-2">
+    <div class="grid m-3 lg:grid-cols-4 sm:grid-cols-2">
       <div class="flex justify-start w-auto m-2">
         <label for="new-todo" class="text-white">Layer Filter : </label>
         <select
@@ -97,35 +97,10 @@
           Add
         </button>
       </div>
-      <div class="flex justify-start w-auto m-2" v-if="isEditLayer">
-        <input
-          placeholder="Type Layer Name"
-          v-model="newLayer"
-          class="border rounded focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-        />
-        <select
-          v-model="color"
-          class="h-8 ml-2 border rounded"
-          @change="onChangeOfColor($event)"
-        >
-          <option disabled value="">
-            Select Color
-          </option>
-          <option v-for="color in colors" :value="color" :key="color">{{
-            color
-          }}</option>
-        </select>
-        <button
-          @click="updateLayer()"
-          class="px-4 py-1 ml-2 text-white bg-green-600 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-        >
-          Update
-        </button>
-      </div>
     </div>
 
-    <div class="relative flex ml-2 overflow-hidden text-white" v-if="layers.length>0">
-      <div class="flex bg-gray-600 bg-gradient-to-br md:flex-col">
+    <div class="relative flex justify-start m-3 overflow-hidden" v-if="layers.length>0">
+      <div class="text-white bg-gray-600 bg-gradient-to-br md:flex-col">
         <div
           class="relative z-10 flex flex-col items-start p-2 divide-y sm:max-w-sm sm:flex-none md:w-auto md:flex-auto"
         >
@@ -172,6 +147,31 @@
             </li>
           </ul>
         </div>
+      </div>
+       <div class="w-auto ml-2" v-if="isEditLayer">
+        <input
+          placeholder="Type Layer Name"
+          v-model="newLayer"
+          class="h-8 border rounded focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+        />
+        <select
+          v-model="color"
+          class="h-8 ml-2 border rounded"
+          @change="onChangeOfColor($event)"
+        >
+          <option disabled value="">
+            Select Color
+          </option>
+          <option v-for="color in colors" :value="color" :key="color">{{
+            color
+          }}</option>
+        </select>
+        <button
+          @click="updateLayer()"
+          class="px-4 py-1 ml-2 text-white bg-green-600 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+        >
+          Update
+        </button>
       </div>
     </div>
 
