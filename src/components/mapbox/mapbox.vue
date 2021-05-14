@@ -116,7 +116,7 @@
       v-if="layers.length>0"
       class="relative flex justify-start m-3 overflow-hidden"
     >
-      <div class="text-white bg-gray-600 bg-gradient-to-br md:flex-col">
+      <div class="h-64 overflow-auto text-white bg-gray-600 bg-gradient-to-br md:flex-col">
         <div
           class="relative z-10 flex flex-col items-start p-2 divide-y sm:max-w-sm sm:flex-none md:w-auto md:flex-auto"
         >
@@ -204,7 +204,6 @@
         </button>
       </div>
     </div>
-
     <div
       id="map"
       class="w-auto mt-2"
@@ -418,15 +417,15 @@ export default {
       this.color = this.layers[index].color;
     },
     removePolygonLayer: function(index) {
-      // To remove the layer from map
-      this.mapbox.removeLayer("polygons" + index);
-      // To remove the selected feature
-      this.draw.delete(this.draw.getAll().features[index].id);
       // To remove the layer locally
       this.layers.splice(index, 1);
       this.initilizeLayer();
       this.selectedLayerIndex = 0;
       this.attachLayerOnMap();
+       // To remove the layer from map
+      this.mapbox.removeLayer("polygons" + index);
+      // To remove the selected feature
+      this.draw.delete(this.draw.getAll().features[index].id);
     },
     onChangeOfColor: function() {
     },
